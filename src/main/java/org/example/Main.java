@@ -1,6 +1,5 @@
 package org.example;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,10 +20,11 @@ public class Main {
                 String formattedResult = formatResult(result);
                 System.out.println("The result of your calculation is: " + formattedResult);
             } else {
-                System.out.println("We are unable to calculate that at this time. Please use the 4 basic operators at this time.");
+                System.out.println("We are unable to calculate that at this time." +
+                        "Please ensure you are using the right operator and that your input only contains numbers.");
             }
 
-            System.out.print("Do you want to continue? (y/n): ");
+            System.out.print("Do you want to perform another calculation? (y/n): ");
             choice = sc.nextLine();
 
             if (choice.equalsIgnoreCase("n")) {
@@ -33,9 +33,11 @@ public class Main {
         }
     }
 
-    //This is to check if the input the user provided is clean and what is expected
     public static boolean checkValidInput(String userInput) {
-        return userInput.matches(".*[+\\-*/].*");
+        //This is to check if the input the user provided is clean and what is expected
+        boolean correctOperator = userInput.matches(".*[+\\-*/].*");
+        boolean cleanInput = userInput.matches(".*[a-z].*");
+        return !cleanInput && correctOperator;
     }
 
     public static double splitAndCalculate(String userInput) {
